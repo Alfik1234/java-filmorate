@@ -7,6 +7,7 @@ import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import jakarta.validation.Valid;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -18,10 +19,6 @@ public class FilmController {
     private final Map<Long, Film> films = new HashMap<>();
     private Long nextId = 1L;
 
-    private Long getNextId() {
-        return nextId++;
-    }
-
     @PostMapping
     public Film createFilm(@Valid @RequestBody Film film) {
 
@@ -31,7 +28,6 @@ public class FilmController {
 
         film.setId(getNextId());
         films.put(film.getId(), film);
-
         log.info("Добавлен фильм {}", film);
         return film;
     }
@@ -48,7 +44,6 @@ public class FilmController {
         }
 
         films.put(film.getId(), film);
-
         log.info("Обновлён фильм {}", film);
         return film;
     }
@@ -57,5 +52,9 @@ public class FilmController {
     public List<Film> getFilms() {
         log.info("Получен список фильмов");
         return new ArrayList<>(films.values());
+    }
+
+    private Long getNextId() {
+        return nextId++;
     }
 }

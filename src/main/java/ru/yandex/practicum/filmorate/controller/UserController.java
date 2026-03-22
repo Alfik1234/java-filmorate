@@ -6,6 +6,7 @@ import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 
 import jakarta.validation.Valid;
+
 import java.util.*;
 
 @RestController
@@ -15,10 +16,6 @@ public class UserController {
 
     private final Map<Long, User> users = new HashMap<>();
     private Long nextId = 1L;
-
-    private Long getNextId() {
-        return nextId++;
-    }
 
     @PostMapping
     public User createUser(@Valid @RequestBody User user) {
@@ -55,5 +52,9 @@ public class UserController {
     public List<User> getUsers() {
         log.info("Получен список пользователей");
         return new ArrayList<>(users.values());
+    }
+
+    private Long getNextId() {
+        return nextId++;
     }
 }
